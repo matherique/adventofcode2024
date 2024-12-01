@@ -21,19 +21,6 @@ func main() {
 
 	lines := bytes.Split(f, []byte{10})
 
-	part1(lines)
-	part2(lines)
-
-}
-
-func abs(x int) int {
-	if x < 0 {
-		return -x
-	}
-	return x
-}
-
-func part1(lines [][]byte) int {
 	rights, lefts := make([]int, len(lines)-1), make([]int, len(lines)-1)
 	for i, line := range lines[:len(lines)-1] {
 		sides := bytes.Split(line, []byte{32, 32, 32})
@@ -47,14 +34,25 @@ func part1(lines [][]byte) int {
 		assert.NotNil(err, "invalid number", "number", string(sides[1]))
 		rights[i] = right
 	}
+	part1(rights, lefts)
+	part2(rights, lefts)
 
+}
+
+func abs(x int) int {
+	if x < 0 {
+		return -x
+	}
+	return x
+}
+
+func part1(rights, lefts []int) int {
 	sort.Ints(rights)
 	sort.Ints(lefts)
 
 	var sum int
 	for i := 0; i < len(rights); i += 1 {
 		diff := abs(rights[i] - lefts[i])
-		slog.Info("diff", "right", rights[i], "left", lefts[i], "diff", diff)
 		sum += diff
 	}
 
@@ -62,6 +60,21 @@ func part1(lines [][]byte) int {
 	return sum
 }
 
-func part2(lines [][]byte) int {
-	return 0
+func part2(rights, lefts []int) int {
+	count := make(map[int]int)
+	for i := 0; i < len(rights); i += 1 {
+		for j := 0; j < len(lefts); j += 1 {
+			if rights[j] == lefts[i] {
+				count[lefts[i]] += 1
+			}
+		}
+	}
+
+	var sum int
+	for k, v := range count {
+		sum += k * v
+	}
+
+	slog.Info("the result of part 2", "sum", sum)
+	return sum
 }
