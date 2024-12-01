@@ -21,6 +21,19 @@ func main() {
 
 	lines := bytes.Split(f, []byte{10})
 
+	part1(lines)
+	part2(lines)
+
+}
+
+func abs(x int) int {
+	if x < 0 {
+		return -x
+	}
+	return x
+}
+
+func part1(lines [][]byte) int {
 	rights, lefts := make([]int, len(lines)-1), make([]int, len(lines)-1)
 	for i, line := range lines[:len(lines)-1] {
 		sides := bytes.Split(line, []byte{32, 32, 32})
@@ -46,12 +59,9 @@ func main() {
 	}
 
 	slog.Info("the result of part 1", "sum", sum)
-
+	return sum
 }
 
-func abs(x int) int {
-	if x < 0 {
-		return -x
-	}
-	return x
+func part2(lines [][]byte) int {
+	return 0
 }
