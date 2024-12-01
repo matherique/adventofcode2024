@@ -4,17 +4,20 @@ import (
 	"bytes"
 	"log/slog"
 	"os"
+	"path/filepath"
 	"sort"
 	"strconv"
 
 	"github.com/matherique/adventofcode2024/pkg/assert"
 )
 
-const filename = "../../inputs/day1.txt"
+const filename = "inputs/day1.txt"
 
 func main() {
-	f, err := os.ReadFile(filename)
-	assert.NotNill(err, "failed to read the file", "filename", filename)
+	fp, err := filepath.Abs(filename)
+	assert.NotNil(err, "invalid file path", "filename", filename)
+	f, err := os.ReadFile(fp)
+	assert.NotNil(err, "failed to read the file", "filename", filename)
 
 	lines := bytes.Split(f, []byte{10})
 
@@ -24,11 +27,11 @@ func main() {
 		assert.True(len(sides) != 2, "invalid line", "len", len(sides))
 
 		left, err := strconv.Atoi(string(sides[0]))
-		assert.NotNill(err, "invalid number", "number", string(sides[0]))
+		assert.NotNil(err, "invalid number", "number", string(sides[0]))
 		lefts[i] = left
 
 		right, err := strconv.Atoi(string(sides[1]))
-		assert.NotNill(err, "invalid number", "number", string(sides[1]))
+		assert.NotNil(err, "invalid number", "number", string(sides[1]))
 		rights[i] = right
 	}
 

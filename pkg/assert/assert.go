@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func NotNill(err error, message string, args ...any) {
+func NotNil(err error, message string, args ...any) {
 	if err != nil {
 		slog.Error(message, "err", err, "args", args)
 		os.Exit(1)
