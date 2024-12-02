@@ -9,6 +9,7 @@ import (
 	"strconv"
 
 	"github.com/matherique/adventofcode2024/pkg/assert"
+	"github.com/matherique/adventofcode2024/pkg/utils"
 )
 
 const filename = "inputs/day1.txt"
@@ -39,20 +40,13 @@ func main() {
 
 }
 
-func abs(x int) int {
-	if x < 0 {
-		return -x
-	}
-	return x
-}
-
 func part1(rights, lefts []int) int {
 	sort.Ints(rights)
 	sort.Ints(lefts)
 
 	var sum int
 	for i := 0; i < len(rights); i += 1 {
-		diff := abs(rights[i] - lefts[i])
+		diff := utils.Abs(rights[i] - lefts[i])
 		sum += diff
 	}
 
