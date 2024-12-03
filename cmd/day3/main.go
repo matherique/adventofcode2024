@@ -19,6 +19,7 @@ func main() {
 	assert.NotNil(err, "failed to read the file", "filename", filename)
 
 	part1(string(f))
+	part2(string(f))
 }
 
 func part1(memory string) int {
@@ -79,5 +80,39 @@ func isValidMult(txt string) (int, int, bool) {
 }
 
 func part2(memory string) int {
-	return 0
+	allow := true
+	var total int
+	var nmul int
+	for i := 0; i < len(memory)-3; i++ {
+		x := memory[i : i+4]
+
+		isFirst := nmul == 0
+
+		if strings.Contains(memory[i:i+4], "do()") {
+			allow = true
+		}
+
+		if i+7 <= len(memory) && strings.Contains(memory[i:i+7], "don't()") {
+			allow = false
+		}
+
+		if x == "mul(" && allow || isFirst {
+			for j := 0; j <= 8; j++ {
+				if i+4+j > len(memory) {
+					break
+				}
+
+				p := memory[i : i+4+j]
+				if x, y, ok := isValidMult(p); ok {
+					total += x * y
+					nmul++
+					break
+				}
+			}
+		}
+	}
+
+	slog.Info("the result of day 3 part 2", "total", total)
+
+	return total
 }
