@@ -1,6 +1,8 @@
 package utils
 
-import "sort"
+import (
+	"sort"
+)
 
 func Abs(x int) int {
 	if x < 0 {
