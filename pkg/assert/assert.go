@@ -13,7 +13,7 @@ func NotNil(err error, message string, args ...any) {
 }
 
 func True(cond bool, message string, args ...any) {
-	if cond {
+	if !cond {
 		slog.Error(message, "args", args)
 		os.Exit(1)
 	}

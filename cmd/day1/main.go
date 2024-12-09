@@ -25,7 +25,7 @@ func main() {
 	rights, lefts := make([]int, len(lines)-1), make([]int, len(lines)-1)
 	for i, line := range lines[:len(lines)-1] {
 		sides := bytes.Split(line, []byte{32, 32, 32})
-		assert.True(len(sides) != 2, "invalid line", "len", len(sides))
+		assert.True(len(sides) == 2, "invalid line", "len", len(sides))
 
 		left, err := strconv.Atoi(string(sides[0]))
 		assert.NotNil(err, "invalid number", "number", string(sides[0]))

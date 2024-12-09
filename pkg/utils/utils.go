@@ -2,6 +2,9 @@ package utils
 
 import (
 	"sort"
+	"strconv"
+
+	"github.com/matherique/adventofcode2024/pkg/assert"
 )
 
 func Abs(x int) int {
@@ -13,4 +16,11 @@ func Abs(x int) int {
 
 func IsSorted(arr []int) bool {
 	return sort.IntsAreSorted(arr) || sort.IsSorted(sort.Reverse(sort.IntSlice(arr)))
+}
+
+func ParseNumber(s string) int {
+	v, err := strconv.Atoi(s)
+	assert.NotNil(err, "invalid number", "number", s)
+
+	return v
 }
